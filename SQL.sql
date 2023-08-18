@@ -2,16 +2,12 @@
 Представь: тебе нужно проверить, отображается ли созданный заказ в базе данных.
 Для этого: выведи список логинов курьеров с количеством их заказов в статусе «В доставке» (поле inDelivery = true). */
 
-SELECT login, COUNT ("Orders".id) FROM "Couriers"
-JOIN "Orders"
-ON "Couriers".id = "Orders"."courierId"
-WHERE "Orders"."inDelivery"
-GROUP BY "Couriers".id;
-или
-SELECT c.login,
-COUNT(o.id) FROM "Couriers" AS c
-LEFT OUTER JOIN "Orders" AS o ON c.id = o."courierId"
-WHERE o."inDelivery" = true GROUP BY c.login;
+SELECT courier.login, 
+    COUNT (*) AS delivery_count
+FROM Orders
+JOIN courier ON orders.courier_id=courier.id
+WHERE Orders.inDelivery=TRUE
+GROUP BY courier.login;
 
 /*
 Задание 2
